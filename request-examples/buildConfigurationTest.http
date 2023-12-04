@@ -1,0 +1,88 @@
+### Generate test data
+@projectId = {{$random.alphabetic(10)}}
+@buildId = {{$random.alphabetic(10)}}
+
+### 0. Generate auth token
+GET http://admin:admin@localhost:8111/authenticationTest.html?csrf
+Accept: application/json
+
+> {% client.global.set("auth_token", response.body); %}
+###
+
+GET http://localhost:8111/app/rest/server/authSettings
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: {{auth_token}}
+
+### 1. Create project
+POST http://localhost:8111/app/rest/projects
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: {{auth_token}}
+
+{
+  "parentProject": {
+    "locator": "_Root"
+  },
+  "name": {{projectId}},
+  "id": {{projectId}},
+  "copyAllAssociatedSettings": true
+}
+
+### 2. Create build configuration
+POST http://localhost:8111/app/rest/buildTypes
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: {{auth_token}}
+
+{
+  "id": {{buildId}},
+  "name": "print hello world",
+  "project": {
+    "id": {{projectId}}
+  },
+  "steps": {
+    "step": [
+      {
+        "name": "print hello world",
+        "type": "simpleRunner",
+        "properties": {
+          "property": [
+            {
+              "name": "script.content",
+              "value": "echo 'Hello World!'"
+            },
+            {
+              "name": "teamcity.step.mode",
+              "value": "default"
+            },
+            {
+              "name": "use.custom.script",
+              "value": "true"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
+### 3. Run buid configuration
+POST http://localhost:8111/app/rest/buildQueue
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: {{auth_token}}
+
+{
+  "buildType": {
+    "id": {{buildId}}
+  }
+}
+
+### 4. Check build status
+GET http://localhost:8111/app/rest/buildTypes/id:{{buildId}}/builds/running:true
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: {{auth_token}}
+
+
