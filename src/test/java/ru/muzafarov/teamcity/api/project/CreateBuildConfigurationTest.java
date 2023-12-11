@@ -5,8 +5,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.muzafarov.teamcity.api.BaseApiTest;
 import ru.muzafarov.teamcity.api.models.BuildType;
-import ru.muzafarov.teamcity.api.models.BuildTypeList;
 import ru.muzafarov.teamcity.api.models.NewProjectDescription;
+
+import java.util.List;
 
 import static org.testng.Assert.*;
 import static ru.muzafarov.teamcity.api.generators.TestDataGenerator.generateBuildType;
@@ -39,10 +40,10 @@ public class CreateBuildConfigurationTest extends BaseApiTest {
         generateBuildType(project);
         BuildType buildType = checkedWithSuperUserRequest.getCheckedBuildConfigReq().create(generateBuildType(project));
 
-        BuildTypeList buildTypesList = checkedWithSuperUserRequest.getCheckedProjectReq().getBuildTypesList(project.getId());
+        List<BuildType> list = checkedWithSuperUserRequest.getCheckedBuildConfigReq().getList("buildType");
 
-        assertEquals(2, buildTypesList.getCount());
-        assertTrue(buildTypesList.getBuildType().stream().anyMatch(x -> x.getId().equals(buildType.getId())));
+        assertEquals(4, list.size());
+        assertTrue(list.stream().anyMatch(x -> x.getId().equals(buildType.getId())));
     }
 
     @Test
@@ -152,13 +153,18 @@ public class CreateBuildConfigurationTest extends BaseApiTest {
 
     @Test
     public void createBuildConfigurationWithVeryLongNameTest() {
+        String expectedErrorMessage = "The name length must not exceed 100 characters";
         var testData = testDataStorage.addTestData();
         checkedWithSuperUserRequest.getCheckedProjectReq().create(testData.getProject());
         testData.getBuildType().setName(RandomStringUtils.randomAlphabetic(30000));
 
-        unCheckedWithSuperUserRequest.getUncheckedBuildReq().create(testData.getBuildType())
+        String errorMessage = unCheckedWithSuperUserRequest.getUncheckedBuildReq().create(testData.getBuildType())
                 .then()
-                .statusCode(400);
+                .statusCode(400)
+                .extract()
+                .asString();
+
+        assertTrue(errorMessage.contains(expectedErrorMessage), format("No string '{}' in Response", expectedErrorMessage));
     }
 
     @Test

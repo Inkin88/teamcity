@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import static ru.muzafarov.teamcity.api.utils.StringUtils.format;
+
 public class Config {
     private final static String CONFIG_PROPERTIES = "config.properties";
     private static Config config;
@@ -24,11 +26,11 @@ public class Config {
     private void loadProperties() {
         try (InputStream stream = Config.class.getClassLoader().getResourceAsStream(CONFIG_PROPERTIES)) {
             if (stream == null) {
-                System.err.println("File not found" + CONFIG_PROPERTIES);
+                System.err.println(format("File not found {}", CONFIG_PROPERTIES));
             }
             properties.load(stream);
         } catch (IOException e) {
-            System.err.println("Error during file reading" + CONFIG_PROPERTIES);
+            System.err.println(format("Error during file reading {}", CONFIG_PROPERTIES));
             throw new RuntimeException(e);
         }
     }

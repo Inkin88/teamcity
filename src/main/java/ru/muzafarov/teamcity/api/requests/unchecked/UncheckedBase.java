@@ -3,30 +3,30 @@ package ru.muzafarov.teamcity.api.requests.unchecked;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import ru.muzafarov.teamcity.api.requests.CrudInterface;
+import ru.muzafarov.teamcity.api.requests.GetDetailsInterface;
 import ru.muzafarov.teamcity.api.requests.Request;
 
 import static io.restassured.RestAssured.given;
 import static ru.muzafarov.teamcity.api.utils.StringUtils.format;
 
-public class UncheckedBuildConfigRequests extends Request implements CrudInterface {
+public class UncheckedBase extends Request implements CrudInterface, GetDetailsInterface {
+    private final String endpoint;
 
-    private static final String BUILD_ENDPOINT = "/app/rest/buildTypes";
-
-    public UncheckedBuildConfigRequests(RequestSpecification spec) {
+    public UncheckedBase(RequestSpecification spec, String endpoint) {
         super(spec);
+        this.endpoint = endpoint;
     }
-
     @Override
     public Response create(Object obj) {
         return given().spec(spec)
                 .body(obj)
-                .post(BUILD_ENDPOINT);
+                .post(endpoint);
     }
 
     @Override
     public Response get(String id) {
         return given().spec(spec)
-                .get(BUILD_ENDPOINT+ format("/id:{}", id));
+                .get(endpoint+ format("/id:{}", id));
     }
 
     @Override
@@ -37,6 +37,12 @@ public class UncheckedBuildConfigRequests extends Request implements CrudInterfa
     @Override
     public Response delete(String id) {
         return given().spec(spec)
-                .delete(BUILD_ENDPOINT + format("/id:{}", id));
+                .delete(endpoint + format("/id:{}", id));
+    }
+
+    @Override
+    public Response getList(String typeList) {
+        return given().spec(spec)
+                .get(endpoint);
     }
 }
