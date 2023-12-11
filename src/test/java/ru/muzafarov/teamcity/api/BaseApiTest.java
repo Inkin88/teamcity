@@ -10,17 +10,5 @@ import ru.muzafarov.teamcity.api.spec.Specifications;
 
 @Getter
 public class BaseApiTest extends BaseTest {
-    public TestDataStorage testDataStorage;
-    public CheckedRequests checkedWithSuperUserRequest = new CheckedRequests(Specifications.getSpec().superUserSpec());
-    public UncheckedRequests unCheckedWithSuperUserRequest = new UncheckedRequests(Specifications.getSpec().superUserSpec());
 
-    @BeforeMethod
-    public void setupTest() {
-        testDataStorage = TestDataStorage.getTestDataStorage();
-    }
-
-    @AfterMethod
-    public void cleanTest() {
-        testDataStorage.delete();
-    }
 }
