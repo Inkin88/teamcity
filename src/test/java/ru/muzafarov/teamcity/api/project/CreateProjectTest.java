@@ -84,12 +84,16 @@ public class CreateProjectTest extends BaseApiTest {
 
     @Test
     public void createProjectWithVeryLongNameTest() {
+        String expectedErrorMessage = "The name length must not exceed 100 characters";
         var projectData = testDataStorage.addProjectTestData();
         projectData.setName(RandomStringUtils.randomAlphabetic(300000));
 
-        unCheckedWithSuperUserRequest.getUncheckedProjectReq().create(projectData)
+        String errorMessage = unCheckedWithSuperUserRequest.getUncheckedProjectReq().create(projectData)
                 .then()
-                .statusCode(400);
+                .statusCode(400)
+                .extract().asString();
+
+        assertTrue(errorMessage.contains(expectedErrorMessage), format("No string '{}' in Response", expectedErrorMessage));
     }
 
     @Test(dataProvider = "projectIdData")

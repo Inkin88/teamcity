@@ -2,19 +2,17 @@ package ru.muzafarov.teamcity.api.requests;
 
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
-import ru.muzafarov.teamcity.api.requests.unchecked.UncheckedBuildConfigRequests;
-import ru.muzafarov.teamcity.api.requests.unchecked.UncheckedProjectRequest;
-import ru.muzafarov.teamcity.api.requests.unchecked.UncheckedUserRequests;
+import ru.muzafarov.teamcity.api.requests.unchecked.UncheckedBase;
 @Getter
 public class UncheckedRequests {
 
-    private UncheckedBuildConfigRequests uncheckedBuildReq;
-    private UncheckedProjectRequest uncheckedProjectReq;
-    private UncheckedUserRequests uncheckedUserReq;
+    private UncheckedBase uncheckedBuildReq;
+    private UncheckedBase uncheckedProjectReq;
+    private UncheckedBase uncheckedUserReq;
 
     public UncheckedRequests(RequestSpecification spec) {
-        this.uncheckedBuildReq = new UncheckedBuildConfigRequests(spec);
-        this.uncheckedProjectReq = new UncheckedProjectRequest(spec);
-        this.uncheckedUserReq = new UncheckedUserRequests(spec);
+        this.uncheckedBuildReq = new UncheckedBase(spec, "/app/rest/buildTypes");
+        this.uncheckedProjectReq = new UncheckedBase(spec, "/app/rest/projects");
+        this.uncheckedUserReq = new UncheckedBase(spec, "/app/rest/users");
     }
 }

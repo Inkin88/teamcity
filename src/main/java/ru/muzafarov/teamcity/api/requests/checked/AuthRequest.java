@@ -8,13 +8,14 @@ import ru.muzafarov.teamcity.api.spec.Specifications;
 @AllArgsConstructor
 public class AuthRequest {
     private User user;
+    private static final String CSRF_TOKEN_ENDPOINT = "/authenticationTest.html?csrf";
 
     public String getCsrfToken() {
         return RestAssured
                 .given()
                 .spec(Specifications.getSpec().authSpec(
                         user))
-                .get("/authenticationTest.html?csrf")
+                .get(CSRF_TOKEN_ENDPOINT)
                 .then().statusCode(200)
                 .extract()
                 .asString();

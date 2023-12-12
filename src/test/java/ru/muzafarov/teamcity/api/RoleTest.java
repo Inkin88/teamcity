@@ -3,10 +3,8 @@ package ru.muzafarov.teamcity.api;
 import org.testng.annotations.Test;
 import ru.muzafarov.teamcity.api.enums.Role;
 import ru.muzafarov.teamcity.api.models.User;
-import ru.muzafarov.teamcity.api.requests.checked.CheckedBuildConfigRequests;
-import ru.muzafarov.teamcity.api.requests.checked.CheckedProjectRequests;
-import ru.muzafarov.teamcity.api.requests.unchecked.UncheckedBuildConfigRequests;
-import ru.muzafarov.teamcity.api.requests.unchecked.UncheckedProjectRequest;
+import ru.muzafarov.teamcity.api.requests.CheckedRequests;
+import ru.muzafarov.teamcity.api.requests.UncheckedRequests;
 import ru.muzafarov.teamcity.api.spec.Specifications;
 
 import static org.hamcrest.Matchers.containsString;
@@ -18,16 +16,18 @@ public class RoleTest extends BaseApiTest {
     @Test
     public void unAuthorizeUserShouldNotHaveRightsToCreateProjectTest() {
         var testData = testDataStorage.addTestData();
-        var uncheckedProject = new UncheckedProjectRequest(Specifications.getSpec().unAuthSpec());
+        var uncheckedProject = new UncheckedRequests(Specifications.getSpec().unAuthSpec());
 
         uncheckedProject
+                .getUncheckedProjectReq()
                 .create(testData.getProject())
                 .then()
                 .statusCode(401)
                 .body(equalTo("Authentication required\n" +
                         "To login manually go to \"/login.html\" page"));
 
-        new UncheckedProjectRequest((Specifications.getSpec().authSpec(testData.getUser())))
+        new UncheckedRequests(Specifications.getSpec().superUserSpec())
+                .getUncheckedProjectReq()
                 .get(testData.getProject().getId())
                 .then()
                 .statusCode(404)
@@ -41,8 +41,9 @@ public class RoleTest extends BaseApiTest {
 
         checkedWithSuperUserRequest.getCheckedUserReq().create(testData.getUser());
 
-        var project = new CheckedProjectRequests(Specifications.getSpec()
+        var project = new CheckedRequests(Specifications.getSpec()
                 .authSpec(testData.getUser()))
+                .getCheckedProjectReq()
                 .create(testData.getProject());
 
         softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
@@ -61,7 +62,8 @@ public class RoleTest extends BaseApiTest {
         checkedWithSuperUserRequest.getCheckedUserReq()
                 .create(user);
 
-        var buildConfig = new CheckedBuildConfigRequests(Specifications.getSpec().authSpec(user))
+        var buildConfig = new CheckedRequests(Specifications.getSpec().authSpec(user))
+                .getCheckedBuildConfigReq()
                 .create(testData.getBuildType());
 
         softy.assertThat(buildConfig.getId()).isEqualTo(testData.getBuildType().getId());
@@ -90,7 +92,8 @@ public class RoleTest extends BaseApiTest {
         checkedWithSuperUserRequest.getCheckedUserReq()
                 .create(secondUser);
 
-        new UncheckedBuildConfigRequests(Specifications.getSpec().authSpec(firstUser))
+        new UncheckedRequests(Specifications.getSpec().authSpec(firstUser))
+                .getUncheckedBuildReq()
                 .create(secondTestData.getBuildType())
                 .then()
                 .statusCode(403)

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NewProjectDescription {
-
     private Project parentProject;
     private String name;
     private String id;
