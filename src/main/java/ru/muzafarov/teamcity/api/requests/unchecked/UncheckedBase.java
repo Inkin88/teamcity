@@ -35,9 +35,14 @@ public class UncheckedBase extends Request implements CrudInterface, GetDetailsI
     }
 
     @Override
-    public Response delete(String id) {
+    public Response deleteById(String id) {
         return given().spec(spec)
                 .delete(endpoint + format("/id:{}", id));
+    }
+
+    public Response deleteByUserName(String name) {
+        return given().spec(spec)
+                .delete(endpoint + format("/username:{}", name));
     }
 
     @Override

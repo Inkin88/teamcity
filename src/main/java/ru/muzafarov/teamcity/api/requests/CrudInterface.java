@@ -8,5 +8,7 @@ public interface CrudInterface {
 
     Object update(Object obj);
 
-    Object delete(String id);
+    Object deleteById(String id);
+
+    Object deleteByUserName(String userName);
 }
