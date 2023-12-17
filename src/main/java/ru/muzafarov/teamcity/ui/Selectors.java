@@ -22,4 +22,20 @@ public class Selectors {
     public static ByAttribute byClass(String value) {
         return new ByAttribute("class", value);
     }
+
+    public static ByAttribute byTitle(String value) {
+        return new ByAttribute("title", value);
+    }
+
+    public static ByAttribute byHref(String value) {
+        return new ByAttribute("href", value);
+    }
+
+    public static ByAttribute byRole(String value) {
+        return new ByAttribute("role", value);
+    }
+
+    public static ByAttribute byDataHintContainerId(String value) {
+        return new ByAttribute("data-hint-container-id", value);
+    }
 }

@@ -5,7 +5,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import ru.muzafarov.teamcity.ui.Selectors;
 import ru.muzafarov.teamcity.ui.elements.PageElement;
-import ru.muzafarov.teamcity.ui.elements.PageProjectElement;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ public abstract class Page {
     private SelenideElement submitButton = element(Selectors.byType("submit"));
     private SelenideElement savingWaitingMarker = element(Selectors.byId("saving"));
     private SelenideElement pageWaitingMarker = element(Selectors.byDataTest("ring"));
+    private SelenideElement projectsWaitingMarker = element(Selectors.byDataTest("ring-loader-inline"));
 
     public void submit() {
         submitButton.click();
@@ -30,8 +30,11 @@ public abstract class Page {
     }
 
     public void waitUntilDataIsSaved() {
-        savingWaitingMarker.shouldBe(Condition.visible);
         savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(30));
+    }
+
+    public void waitUntilProjectsAreLoaded() {
+        projectsWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(30));
     }
 
     public  <T extends PageElement> List<T> generatePageElements(ElementsCollection collection, Function<SelenideElement, T> creator) {

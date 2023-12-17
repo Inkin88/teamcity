@@ -3,7 +3,6 @@ package ru.muzafarov.teamcity.ui.elements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import ru.muzafarov.teamcity.ui.Selectors;
 
 public abstract class PageElement {
     private final SelenideElement element;
