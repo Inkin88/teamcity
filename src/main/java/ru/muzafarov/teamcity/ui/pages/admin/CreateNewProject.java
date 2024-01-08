@@ -11,6 +11,7 @@ import static com.codeborne.selenide.Selenide.element;
 import static ru.muzafarov.teamcity.api.utils.StringUtils.format;
 
 public class CreateNewProject extends Page {
+    private static final String ADMIN_CREATE_PROJECT_URL = "/admin/createObjectMenu.html?projectId={}&showMode=createProjectMenu";
     private final SelenideElement urlInput = element(Selectors.byId("url"));
     private final SelenideElement proceedButton = element(Selectors.byName("createProjectFromUrl"));
     private final SelenideElement createProjectButton = element(Selectors.byName("createProject"));
@@ -23,7 +24,7 @@ public class CreateNewProject extends Page {
     private final SelenideElement projectNameError = element(Selectors.byId("errorName"));
 
     public CreateNewProject open(String parentProjectId) {
-        Selenide.open(format("/admin/createObjectMenu.html?projectId={}&showMode=createProjectMenu", parentProjectId));
+        Selenide.open(format(ADMIN_CREATE_PROJECT_URL, parentProjectId));
         waitUntilPageIsLoaded();
         return this;
     }

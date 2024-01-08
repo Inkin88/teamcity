@@ -15,12 +15,12 @@ import static com.codeborne.selenide.Selenide.element;
 import static com.codeborne.selenide.Selenide.elements;
 
 public class ProjectPage extends Page {
+    private static final String PROJECT_URL = "/project/";
     private String projectName;
     private String projectId;
-    SelenideElement pageHeader = element(Selectors.byClass("ProjectPageHeader__title--ih"));
-    SelenideElement editProjectButton = element(Selectors.byTitle("Edit project..."));
+    private SelenideElement pageHeader = element(Selectors.byClass("ProjectPageHeader__title--ih"));
+    private SelenideElement editProjectButton = element(Selectors.byTitle("Edit project..."));
     private ElementsCollection buildTypes = elements(Selectors.byClass("BuildTypes__item--UX"));
-    private static final String PROJECT_URL = "/project/";
 
     public ProjectPage(Project project) {
         this.projectId = project.getId();
