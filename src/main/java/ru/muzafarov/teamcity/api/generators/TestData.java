@@ -23,11 +23,11 @@ public class TestData {
 
     public void deleteAll() {
         deleteProject(project.getId());
-        new UncheckedRequests(spec).getUncheckedUserReq().delete(user.getUserName());
+        new UncheckedRequests(spec).getUncheckedUserReq().deleteByUserName(user.getUserName());
     }
 
     public static void deleteProject(String projectId) {
         RequestSpecification spec = Specifications.getSpec().superUserSpec();
-        new UncheckedRequests(spec).getUncheckedProjectReq().delete(projectId);
+        new UncheckedRequests(spec).getUncheckedProjectReq().deleteById(projectId);
     }
 }

@@ -1,3 +1,9 @@
+DELETE http://localhost:8111/app/rest/users/id%3AvbrwaiyasL_test_api
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: {{auth_token}}
+
+###
 ### Generate test data
 @projectId = {{$random.alphabetic(10)}}
 @buildId = {{$random.alphabetic(10)}}
@@ -7,6 +13,11 @@ GET http://admin:admin@localhost:8111/authenticationTest.html?csrf
 Accept: application/json
 
 > {% client.global.set("auth_token", response.body); %}
+###
+DELETE http://localhost:8111/app/rest/users/id%3avbrwaiyasl_test_api
+Content-Type: application/json
+Accept: application/json
+X-TC-CSRF-Token: {{auth_token}}
 ###
 
 GET http://localhost:8111/app/rest/server/authSettings
