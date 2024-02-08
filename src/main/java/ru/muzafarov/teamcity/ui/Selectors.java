@@ -1,6 +1,7 @@
 package ru.muzafarov.teamcity.ui;
 
 import com.codeborne.selenide.selector.ByAttribute;
+import org.openqa.selenium.By;
 
 public class Selectors {
     public static ByAttribute byId(String value) {
@@ -30,12 +31,15 @@ public class Selectors {
     public static ByAttribute byHref(String value) {
         return new ByAttribute("href", value);
     }
-
     public static ByAttribute byRole(String value) {
         return new ByAttribute("role", value);
     }
 
     public static ByAttribute byDataHintContainerId(String value) {
         return new ByAttribute("data-hint-container-id", value);
+    }
+
+    public static By.ByXPath byXpath(String value) {
+        return new By.ByXPath(value);
     }
 }

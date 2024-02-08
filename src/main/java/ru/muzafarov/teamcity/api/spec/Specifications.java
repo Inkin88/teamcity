@@ -47,7 +47,7 @@ public class Specifications {
 
     public RequestSpecification superUserSpec() {
         var requestBuilder = requestSpecBuilder();
-        requestBuilder.setBaseUri(format("http://:{}@{}", Config.getProperty("superuser.token"), Config.getProperty("host")));
+        requestBuilder.setBaseUri(format("http://:{}@{}", Config.getProperty("superUserToken"), Config.getProperty("host")));
         return requestBuilder.build();
     }
 }
