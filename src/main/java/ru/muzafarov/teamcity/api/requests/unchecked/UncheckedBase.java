@@ -16,6 +16,7 @@ public class UncheckedBase extends Request implements CrudInterface, GetDetailsI
         super(spec);
         this.endpoint = endpoint;
     }
+
     @Override
     public Response create(Object obj) {
         return given().spec(spec)
@@ -26,7 +27,7 @@ public class UncheckedBase extends Request implements CrudInterface, GetDetailsI
     @Override
     public Response get(String id) {
         return given().spec(spec)
-                .get(endpoint+ format("/id:{}", id));
+                .get(endpoint + format("/id:{}", id));
     }
 
     @Override

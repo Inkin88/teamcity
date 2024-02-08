@@ -62,7 +62,6 @@ public class CheckedBase<T> extends Request implements CrudInterface, GetDetails
                 .asString();
     }
 
-
     @Override
     public List<T> getList(String typeList) {
         return new UncheckedBase(spec, endpoint).getList(typeList)
