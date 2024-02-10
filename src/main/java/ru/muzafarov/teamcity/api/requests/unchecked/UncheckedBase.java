@@ -58,4 +58,9 @@ public class UncheckedBase extends Request implements CrudInterface, GetDetailsI
                 .body(format("{\"comment\":{\"text\":\"\"},\"status\":{}}", isEnabled))
                 .put(endpoint + format("/id:{}/authorizedInfo", id));
     }
+
+    public Response getAgentsList() {
+        return given().spec(spec)
+                .get(endpoint + "?locator=authorized:any");
+    }
 }

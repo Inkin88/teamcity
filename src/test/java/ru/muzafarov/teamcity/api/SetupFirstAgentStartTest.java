@@ -9,7 +9,9 @@ import static org.testng.Assert.assertTrue;
 public class SetupFirstAgentStartTest extends BaseApiTest {
     @Test
     public void setupTeamCityAgentTest() {
-        assertTrue(new UncheckedRequests(Specifications.getSpec().superUserSpec()).getUncheckedAgentReq().setAuthorizedAgent("1", true)
+        Integer id = new UncheckedRequests(Specifications.getSpec().superUserSpec()).getUncheckedAgentReq().getAgentsList()
+                .jsonPath().getInt("agent[0].id");
+        assertTrue(new UncheckedRequests(Specifications.getSpec().superUserSpec()).getUncheckedAgentReq().setAuthorizedAgent(String.valueOf(id), true)
                 .jsonPath().getBoolean("status"), "Agent not authorized");
     }
 }
