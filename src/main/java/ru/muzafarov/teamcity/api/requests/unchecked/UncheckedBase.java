@@ -16,6 +16,7 @@ public class UncheckedBase extends Request implements CrudInterface, GetDetailsI
         super(spec);
         this.endpoint = endpoint;
     }
+
     @Override
     public Response create(Object obj) {
         return given().spec(spec)
@@ -26,7 +27,7 @@ public class UncheckedBase extends Request implements CrudInterface, GetDetailsI
     @Override
     public Response get(String id) {
         return given().spec(spec)
-                .get(endpoint+ format("/id:{}", id));
+                .get(endpoint + format("/id:{}", id));
     }
 
     @Override
@@ -35,14 +36,31 @@ public class UncheckedBase extends Request implements CrudInterface, GetDetailsI
     }
 
     @Override
-    public Response delete(String id) {
+    public Response deleteById(String id) {
         return given().spec(spec)
                 .delete(endpoint + format("/id:{}", id));
+    }
+
+    public Response deleteByUserName(String name) {
+        return given().spec(spec)
+                .delete(endpoint + format("/username:{}", name));
     }
 
     @Override
     public Response getList(String typeList) {
         return given().spec(spec)
                 .get(endpoint);
+    }
+
+
+    public Response setAuthorizedAgent(String id, boolean isEnabled) {
+        return given().spec(spec)
+                .body(format("{\"comment\":{\"text\":\"\"},\"status\":{}}", isEnabled))
+                .put(endpoint + format("/id:{}/authorizedInfo", id));
+    }
+
+    public Response getAgentsList() {
+        return given().spec(spec)
+                .get(endpoint + "?locator=authorized:any");
     }
 }

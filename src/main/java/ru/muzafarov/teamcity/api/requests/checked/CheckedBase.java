@@ -43,15 +43,24 @@ public class CheckedBase<T> extends Request implements CrudInterface, GetDetails
     }
 
     @Override
-    public Object delete(String id) {
+    public Object deleteById(String id) {
         return new UncheckedBase(spec, endpoint)
-                .delete(id)
+                .deleteById(id)
                 .then()
                 .statusCode(204)
                 .extract()
                 .asString();
     }
 
+    @Override
+    public Object deleteByUserName(String name) {
+        return new UncheckedBase(spec, endpoint)
+                .deleteByUserName(name)
+                .then()
+                .statusCode(204)
+                .extract()
+                .asString();
+    }
 
     @Override
     public List<T> getList(String typeList) {
