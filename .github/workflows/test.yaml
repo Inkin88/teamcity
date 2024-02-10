@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set execute permission for Maven Wrapper
-        run: chmod +x ./.mvn/wrapper/mvn
+        run: chmod +x mvnw
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
