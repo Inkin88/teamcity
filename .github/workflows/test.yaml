@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Maven Wrapper
-        run: mvn -N io.takari:maven-wrapper
+        run: mvn -N io.takari:maven:wrapper
       - name: Set execute permission for Maven Wrapper
         run: chmod +x mvnw
       - name: Setup JDK 17
