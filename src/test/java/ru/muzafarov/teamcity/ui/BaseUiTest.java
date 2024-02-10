@@ -10,6 +10,7 @@ import ru.muzafarov.teamcity.ui.pages.LoginPage;
 public class BaseUiTest extends BaseTest {
     @BeforeSuite
     public void setupUiTests() {
+        Configuration.browser = "chrome";
         Configuration.baseUrl = "http://" + Config.getProperty("host");
         Configuration.remote = Config.getProperty("remote");
 
