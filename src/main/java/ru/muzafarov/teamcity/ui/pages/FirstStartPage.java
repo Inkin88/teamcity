@@ -7,7 +7,6 @@ import ru.muzafarov.teamcity.ui.Selectors;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.element;
 
 public class FirstStartPage extends Page {
@@ -24,7 +23,7 @@ public class FirstStartPage extends Page {
     private final SelenideElement createAdministratorHeader = element(Selectors.byXpath("//h1[contains(text(), 'Create Administrator Account')]"));
 
     public FirstStartPage open() {
-        Selenide.open(baseUrl);
+        Selenide.open("/");
         return this;
     }
 
