@@ -11,7 +11,6 @@ import ru.muzafarov.teamcity.ui.pages.admin.CreateNewProject;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
-@Test(groups = "Regression")
 public class CreateNewProjectTest extends BaseUiTest {
     @Test
     public void authorizedUserShouldBeAbleCreateNewProject() {

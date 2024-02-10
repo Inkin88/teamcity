@@ -3,6 +3,9 @@
     <test name="API Test">
         <classes>
             <class name="ru.muzafarov.teamcity.api.project.CreateProjectTest"/>
+            <class name="ru.muzafarov.teamcity.api.project.CreateBuildConfigurationTest"/>
+            <class name="ru.muzafarov.teamcity.api.BuildConfigurationTest"/>
+            <class name="ru.muzafarov.teamcity.api.RoleTest"/>
         </classes>
     </test>
 </suite>

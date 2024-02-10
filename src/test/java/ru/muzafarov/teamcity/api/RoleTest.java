@@ -12,7 +12,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static ru.muzafarov.teamcity.api.generators.TestDataGenerator.generateRole;
 import static ru.muzafarov.teamcity.api.utils.StringUtils.format;
 
-@Test(groups = "Regression")
 public class RoleTest extends BaseApiTest {
     @Test
     public void unAuthorizeUserShouldNotHaveRightsToCreateProjectTest() {

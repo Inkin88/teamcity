@@ -14,7 +14,6 @@ import static ru.muzafarov.teamcity.api.generators.TestDataGenerator.generateBui
 import static ru.muzafarov.teamcity.api.generators.TestDataGenerator.generateNewProjectDescription;
 import static ru.muzafarov.teamcity.api.utils.StringUtils.format;
 
-@Test(groups = "Regression")
 public class CreateBuildConfigurationTest extends BaseApiTest {
 
     @Test
