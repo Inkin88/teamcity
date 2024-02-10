@@ -15,6 +15,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static ru.muzafarov.teamcity.api.utils.StringUtils.format;
 
+@Test(groups = "Regression")
 public class CreateBuildConfigurationTest extends BaseUiTest {
 
     @Test

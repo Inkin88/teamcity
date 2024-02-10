@@ -73,7 +73,7 @@ jobs:
           jetbrains/teamcity-agent:2023.11.1
 
       - name: Set Up TeamCity Agent
-        run: ./mvnw clean test -Dtest=SetupFirstStartTest#setupTeamCityAgentTest
+        run: ./mvnw clean test -Dtest=SetupFirstAgentStartTest#setupTeamCityAgentTest
 
       - name: Run tests
         run: ./mvnw clean test -Dgroups=Regression

@@ -11,6 +11,7 @@ import ru.muzafarov.teamcity.ui.pages.admin.CreateNewProject;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
+@Test(groups = "Regression")
 public class CreateNewProjectTest extends BaseUiTest {
     @Test
     public void authorizedUserShouldBeAbleCreateNewProject() {
@@ -75,6 +76,6 @@ public class CreateNewProjectTest extends BaseUiTest {
 
         assertFalse(new ProjectsPage().open()
                 .getSubProjects()
-                .stream().anyMatch(x-> x.getHeader().getText().equals(project.getName())), "Project is not deleted");
+                .stream().anyMatch(x -> x.getHeader().getText().equals(project.getName())), "Project is not deleted");
     }
 }

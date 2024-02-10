@@ -11,6 +11,7 @@ import static org.testng.Assert.assertTrue;
 import static ru.muzafarov.teamcity.api.generators.TestDataGenerator.generateNewProjectDescription;
 import static ru.muzafarov.teamcity.api.utils.StringUtils.format;
 
+@Test(groups = "Regression")
 public class CreateProjectTest extends BaseApiTest {
 
     @Test
@@ -185,12 +186,12 @@ public class CreateProjectTest extends BaseApiTest {
         };
     }
 
-        @DataProvider(name = "projectIdData")
-        public Object[][] idData() {
-            return new Object[][]{
-                    {""},
-                    {" "},
-                    {null}
-            };
+    @DataProvider(name = "projectIdData")
+    public Object[][] idData() {
+        return new Object[][]{
+                {""},
+                {" "},
+                {null}
+        };
     }
 }

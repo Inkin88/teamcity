@@ -7,6 +7,7 @@ import ru.muzafarov.teamcity.api.requests.CheckedRequests;
 import ru.muzafarov.teamcity.api.spec.Specifications;
 
 @Log4j2
+@Test(groups = "Regression")
 public class BuildConfigurationTest extends BaseApiTest {
 
     @Test
